@@ -14,21 +14,29 @@ class InMemoryFeedStore: FeedStore {
 	
 	private var storage: Cache?
 	
+	private let queue = DispatchQueue(label: "\(InMemoryFeedStore.self)Queue", qos: .userInitiated, attributes: .concurrent)
+	
 	func deleteCachedFeed(completion: @escaping DeletionCompletion) {
-		storage = nil
-		completion(nil)
+		queue.async(flags: .barrier) {
+			self.storage = nil
+			completion(nil)
+		}
 	}
 	
 	func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
-		storage = Cache(feed: feed, timestamp: timestamp)
-		completion(nil)
+		queue.async(flags: .barrier) {
+			self.storage = Cache(feed: feed, timestamp: timestamp)
+			completion(nil)
+		}
 	}
 	
 	func retrieve(completion: @escaping RetrievalCompletion) {
-		if let storage = storage {
-			completion(.found(feed: storage.feed, timestamp: storage.timestamp))
-		} else {
-			completion(.empty)
+		queue.async {
+			if let storage = self.storage {
+				completion(.found(feed: storage.feed, timestamp: storage.timestamp))
+			} else {
+				completion(.empty)
+			}
 		}
 	}
 	
@@ -104,9 +112,9 @@ class InMemoryFeedStoreChallengeTests: XCTestCase, FeedStoreSpecs {
 	}
 	
 	func test_storeSideEffects_runSerially() {
-		//		let sut = makeSUT()
-		//
-		//		assertThatSideEffectsRunSerially(on: sut)
+		let sut = makeSUT()
+		
+		assertThatSideEffectsRunSerially(on: sut)
 	}
 	
 	// - MARK: Helpers
