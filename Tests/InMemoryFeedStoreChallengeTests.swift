@@ -7,12 +7,17 @@ import FeedStoreChallenge
 
 class InMemoryFeedStore: FeedStore {
 	
-	private var storage: (feed: [LocalFeedImage], timestamp: Date)?
+	private struct Cache {
+		var feed: [LocalFeedImage]
+		var timestamp: Date
+	}
+	
+	private var storage: Cache?
 	
 	func deleteCachedFeed(completion: @escaping DeletionCompletion) {}
 	
 	func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
-		storage = (feed, timestamp)
+		storage = Cache(feed: feed, timestamp: timestamp)
 		completion(nil)
 	}
 	
