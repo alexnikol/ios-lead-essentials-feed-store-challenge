@@ -5,7 +5,7 @@
 import XCTest
 import FeedStoreChallenge
 
-class FeedStoreIntegrationTests: XCTestCase {
+class InMemoryFeedStoreIntegrationTests: XCTestCase {
 	
 	//  ***********************
 	//
