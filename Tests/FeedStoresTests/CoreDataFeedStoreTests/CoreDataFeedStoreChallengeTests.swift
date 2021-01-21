@@ -9,18 +9,6 @@
 import XCTest
 import FeedStoreChallenge
 
-class CoreDataFeedStore: FeedStore {
-	
-	func retrieve(completion: @escaping RetrievalCompletion) {
-		completion(.empty)
-	}
-	
-	func deleteCachedFeed(completion: @escaping DeletionCompletion) {}
-	
-	func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {}
-	
-}
-
 class CoreDataFeedStoreChallengeTests: XCTestCase, FeedStoreSpecs  {
 	
 	func test_retrieve_deliversEmptyOnEmptyCache() {
