@@ -23,7 +23,7 @@
 		8D02655D25B87A4300FE54C7 /* CoreDataFeedStoreIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D02655C25B87A4300FE54C7 /* CoreDataFeedStoreIntegrationTests.swift */; };
 		8D0E23CC25B9713900B95457 /* CDFeedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0E23CB25B9713900B95457 /* CDFeedImage.swift */; };
 		8D0E23D025B9714800B95457 /* CDCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0E23CF25B9714800B95457 /* CDCache.swift */; };
-		8D0E23D525B9720700B95457 /* CoreDataFeedStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8D0E23D325B9720700B95457 /* CoreDataFeedStore.xcdatamodeld */; };
+		8D0E23D525B9720700B95457 /* CoreDataFeedModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8D0E23D325B9720700B95457 /* CoreDataFeedModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,7 +106,7 @@
 				8D02654A25B86E4400FE54C7 /* InMemoryFeedStore.swift */,
 				8D0E23CB25B9713900B95457 /* CDFeedImage.swift */,
 				8D0E23CF25B9714800B95457 /* CDCache.swift */,
-				8D0E23D325B9720700B95457 /* CoreDataFeedStore.xcdatamodeld */,
+				8D0E23D325B9720700B95457 /* CoreDataFeedModel.xcdatamodeld */,
 			);
 			path = FeedStoreChallenge;
 			sourceTree = "<group>";
@@ -283,7 +283,7 @@
 				08CE2BA82285BCC600183A1B /* LocalFeedImage.swift in Sources */,
 				8D0E23CC25B9713900B95457 /* CDFeedImage.swift in Sources */,
 				8D02654B25B86E4400FE54C7 /* InMemoryFeedStore.swift in Sources */,
-				8D0E23D525B9720700B95457 /* CoreDataFeedStore.xcdatamodeld in Sources */,
+				8D0E23D525B9720700B95457 /* CoreDataFeedModel.xcdatamodeld in Sources */,
 				8D0E23D025B9714800B95457 /* CDCache.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -567,13 +567,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		8D0E23D325B9720700B95457 /* CoreDataFeedStore.xcdatamodeld */ = {
+		8D0E23D325B9720700B95457 /* CoreDataFeedModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				8D0E23D425B9720700B95457 /* CoreDataFeedStore.xcdatamodel */,
 			);
 			currentVersion = 8D0E23D425B9720700B95457 /* CoreDataFeedStore.xcdatamodel */;
-			path = CoreDataFeedStore.xcdatamodeld;
+			path = CoreDataFeedModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
