@@ -114,7 +114,7 @@ private extension NSPersistentContainer {
 	}
  }
 
-  private extension NSManagedObjectModel {
+private extension NSManagedObjectModel {
 	
 	static func with(name: String, in bundle: Bundle) -> NSManagedObjectModel? {
 		return bundle
