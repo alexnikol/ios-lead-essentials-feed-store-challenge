@@ -86,10 +86,13 @@ class CoreDataFeedStoreChallengeTests: XCTestCase, FeedStoreSpecs  {
 	// - MARK: Helpers
 	
 	private func makeSUT() -> FeedStore {
-		let storeURL = URL(fileURLWithPath: "/dev/null")
+		let storeURL = testSpecificURL()
 		let sut = try! CoreDataFeedStore(storeURL: storeURL)
 		trackMemoryLeaks(sut)
 		return sut
+	}
+	private func testSpecificURL() -> URL {
+		return URL(fileURLWithPath: "/dev/null")
 	}
 	
 }
