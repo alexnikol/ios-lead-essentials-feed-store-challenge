@@ -14,10 +14,25 @@ public class CoreDataFeedStore: FeedStore {
 	private let container: NSPersistentContainer
 	private let context: NSManagedObjectContext
 	private let modelName = "CoreDataFeedModel"
+	private let storeURL: URL!
 	
-	public init() throws {
-		let bundle = Bundle(for: CoreDataFeedStore.self)
-		self.container = try NSPersistentContainer.load(modelName: modelName, in: bundle)
+	public init(storeURL: URL) throws {
+		
+		self.storeURL = storeURL
+		
+		guard let modelURL = Bundle(for: CoreDataFeedStore.self).url(forResource: modelName, withExtension:"momd"),
+			  let model = NSManagedObjectModel(contentsOf: modelURL) else {
+			throw NSError()
+		}
+		
+		let description = NSPersistentStoreDescription(url: storeURL)
+		container = NSPersistentContainer(name: modelName, managedObjectModel: model)
+		container.persistentStoreDescriptions = [description]
+				
+		var loadError: Swift.Error?
+		container.loadPersistentStores { loadError = $1 }
+		try loadError.map { throw $0 }
+		
 		context = container.newBackgroundContext()
 	}
 	
