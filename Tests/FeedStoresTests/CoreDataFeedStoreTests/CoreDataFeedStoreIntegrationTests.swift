@@ -30,14 +30,14 @@ class CoreDataFeedStoreIntegrationTests: XCTestCase {
 	}
 	
 	func test_retrieve_deliversFeedInsertedOnAnotherInstance() {
-		//        let storeToInsert = makeSUT()
-		//        let storeToLoad = makeSUT()
-		//        let feed = uniqueImageFeed()
-		//        let timestamp = Date()
-		//
-		//        insert((feed, timestamp), to: storeToInsert)
-		//
-		//        expect(storeToLoad, toRetrieve: .found(feed: feed, timestamp: timestamp))
+		let storeToInsert = makeSUT()
+		let storeToLoad = makeSUT()
+		let feed = uniqueImageFeed()
+		let timestamp = Date()
+
+		insert((feed, timestamp), to: storeToInsert)
+
+		expect(storeToLoad, toRetrieve: .found(feed: feed, timestamp: timestamp))
 	}
 	
 	func test_insert_overridesFeedInsertedOnAnotherInstance() {
@@ -76,7 +76,7 @@ class CoreDataFeedStoreIntegrationTests: XCTestCase {
 	}
 	
 	private func testSpecificURL() -> URL {
-		return URL(fileURLWithPath: "/dev/null")
+		return URL(fileURLWithPath: "/dev/null2")
 	}
 	
 	private func deleteStoreArtifacts() {
