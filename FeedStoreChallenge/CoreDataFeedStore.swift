@@ -13,7 +13,8 @@ public class CoreDataFeedStore: FeedStore {
 	
 	private let container: NSPersistentContainer
 	
-	public init(bundle: Bundle = .main) throws {
+	public init() throws {
+		let bundle = Bundle(for: CoreDataFeedStore.self)
 		self.container = try NSPersistentContainer.load(modelName: "CoreDataFeedModel", in: bundle)
 	}
 	
