@@ -15,7 +15,7 @@ public class CoreDataFeedStore: FeedStore {
 	private let context: NSManagedObjectContext
 	private let modelName = "CoreDataFeedModel"
 	private let storeURL: URL!
-	
+		
 	public init(storeURL: URL) throws {
 		
 		self.storeURL = storeURL
@@ -54,26 +54,27 @@ public class CoreDataFeedStore: FeedStore {
 	}
 	
 	public func deleteCachedFeed(completion: @escaping DeletionCompletion) {
-		do {
-			let request = NSFetchRequest<CDCache>(entityName: CDCache.entity().name!)
-			request.returnsObjectsAsFaults = false
-			if let foundCache = try context.fetch(request).first {
-				context.delete(foundCache)
+		let context = self.context
+		context.perform {
+			do {
+				let request = NSFetchRequest<CDCache>(entityName: CDCache.entity().name!)
+				request.returnsObjectsAsFaults = false
+				if let foundCache = try context.fetch(request).first {
+					context.delete(foundCache)
+					completion(nil)
+				} else {
+					completion (nil)
+				}
+			} catch {
 				completion(nil)
-			} else {
-				completion (nil)
 			}
-		} catch {
-			completion(nil)
 		}
 	}
 	
 	public func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
 		let context = self.context
-		deleteCachedFeed { error in
-			guard error == nil else { return completion(error) }
-			
-			context.perform {
+			self.deleteCachedFeed { error in
+				guard error == nil else { return completion(error) }
 				do {
 					let cache = CDCache(context: context)
 					cache.timeStamp = timestamp
@@ -82,12 +83,24 @@ public class CoreDataFeedStore: FeedStore {
 						feed.from(local)
 						return feed
 					})
+					
 					try context.save()
 					completion(nil)
 				} catch {
 					completion(error)
 				}
-			}
+		}
+	}
+	
+	private func fetchCache() throws -> CDCache? {
+		let request = NSFetchRequest<CDCache>(entityName: CDCache.entity().name!)
+		request.returnsObjectsAsFaults = false
+		return try context.fetch(request).first
+	}
+	
+	private func deleteCache() throws {
+		if let foundCache = try self.fetchCache() {
+			context.delete(foundCache)
 		}
 	}
 	
