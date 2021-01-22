@@ -91,19 +91,7 @@ public class CoreDataFeedStore: FeedStore {
 				}
 		}
 	}
-	
-	private func fetchCache() throws -> CDCache? {
-		let request = NSFetchRequest<CDCache>(entityName: CDCache.entity().name!)
-		request.returnsObjectsAsFaults = false
-		return try context.fetch(request).first
-	}
-	
-	private func deleteCache() throws {
-		if let foundCache = try self.fetchCache() {
-			context.delete(foundCache)
-		}
-	}
-	
+		
 }
 
 private extension NSPersistentContainer {
