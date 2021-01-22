@@ -12,10 +12,13 @@ import CoreData
 public class CoreDataFeedStore: FeedStore {
 	
 	private let container: NSPersistentContainer
+	private let context: NSManagedObjectContext
+	private let modelName = "CoreDataFeedModel"
 	
 	public init() throws {
 		let bundle = Bundle(for: CoreDataFeedStore.self)
-		self.container = try NSPersistentContainer.load(modelName: "CoreDataFeedModel", in: bundle)
+		self.container = try NSPersistentContainer.load(modelName: modelName, in: bundle)
+		context = container.newBackgroundContext()
 	}
 	
 	public func retrieve(completion: @escaping RetrievalCompletion) {
@@ -44,7 +47,6 @@ private extension NSPersistentContainer {
 		var loadError: Swift.Error?
 		container.loadPersistentStores { loadError = $1 }
 		try loadError.map { throw LoadingError.failedToLoadPersistentStores($0) }
-
 		return container
 	}
  }
