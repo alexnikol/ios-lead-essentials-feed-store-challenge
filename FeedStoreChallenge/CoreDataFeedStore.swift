@@ -43,12 +43,7 @@ public class CoreDataFeedStore: FeedStore {
 				let request = NSFetchRequest<CDCache>(entityName: CDCache.entity().name!)
 				request.returnsObjectsAsFaults = false
 				if let cache = try context.fetch(request).first {
-					let feed = cache.feed
-						.compactMap { ($0 as? CDFeedImage) }
-						.map {
-							LocalFeedImage(id: $0.id, description: $0.imageDescription, location: $0.location, url: $0.url)
-						}
-					completion(.found(feed: feed, timestamp: cache.timeStamp))
+					completion(.found(feed: cache.localFeedImages, timestamp: cache.timeStamp))
 				} else {
 					completion(.empty)
 				}
@@ -84,10 +79,7 @@ public class CoreDataFeedStore: FeedStore {
 					cache.timeStamp = timestamp
 					cache.feed = NSOrderedSet(array: feed.map { local in
 						let feed = CDFeedImage(context: context)
-						feed.id = local.id
-						feed.imageDescription = local.description
-						feed.location = local.location
-						feed.url = local.url
+						feed.from(local)
 						return feed
 					})
 					try context.save()

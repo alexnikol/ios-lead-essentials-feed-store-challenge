@@ -15,4 +15,15 @@ public class CDFeedImage: NSManagedObject {
 	@NSManaged public var location: String?
 	@NSManaged public var url: URL
 	@NSManaged public var cache: CDCache
+	
+	var localFeedImage: LocalFeedImage{
+		return LocalFeedImage(id: id, description: imageDescription, location: location, url: url)
+	}
+
+	func from(_ localFeedImage: LocalFeedImage) {
+		id = localFeedImage.id
+		imageDescription = localFeedImage.description
+		location = localFeedImage.location
+		url = localFeedImage.url
+	}
 }
