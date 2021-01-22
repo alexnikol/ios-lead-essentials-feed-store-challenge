@@ -10,14 +10,7 @@ import XCTest
 import FeedStoreChallenge
 
 class CoreDataFeedStoreIntegrationTests: XCTestCase {
-	
-	//  ***********************
-	//
-	//  Uncomment and implement the following tests if your
-	//  implementation persists data to disk (e.g., CoreData/Realm)
-	//
-	//  ***********************
-	
+		
 	override func setUp() {
 		super.setUp()
 		
@@ -31,9 +24,9 @@ class CoreDataFeedStoreIntegrationTests: XCTestCase {
 	}
 	
 	func test_retrieve_deliversEmptyOnEmptyCache() {
-		//        let sut = makeSUT()
-		//
-		//        expect(sut, toRetrieve: .empty)
+		let sut = makeSUT()
+
+		expect(sut, toRetrieve: .empty)
 	}
 	
 	func test_retrieve_deliversFeedInsertedOnAnotherInstance() {
@@ -76,7 +69,14 @@ class CoreDataFeedStoreIntegrationTests: XCTestCase {
 	// - MARK: Helpers
 	
 	private func makeSUT() -> FeedStore {
-		fatalError("Must be implemented")
+		let storeURL = testSpecificURL()
+		let sut = try! CoreDataFeedStore(storeURL: storeURL)
+		trackMemoryLeaks(sut)
+		return sut
+	}
+	
+	private func testSpecificURL() -> URL {
+		return URL(fileURLWithPath: "/dev/null")
 	}
 	
 	private func setupEmptyStoreState() {
