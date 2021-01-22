@@ -61,6 +61,7 @@ public class CoreDataFeedStore: FeedStore {
 				request.returnsObjectsAsFaults = false
 				if let foundCache = try context.fetch(request).first {
 					context.delete(foundCache)
+					try context.save()
 					completion(nil)
 				} else {
 					completion (nil)
