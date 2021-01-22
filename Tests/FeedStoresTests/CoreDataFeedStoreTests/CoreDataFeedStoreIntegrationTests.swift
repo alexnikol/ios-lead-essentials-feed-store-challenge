@@ -79,12 +79,16 @@ class CoreDataFeedStoreIntegrationTests: XCTestCase {
 		return URL(fileURLWithPath: "/dev/null")
 	}
 	
+	private func deleteStoreArtifacts() {
+		try? FileManager.default.removeItem(at: testSpecificURL())
+	}
+	
 	private func setupEmptyStoreState() {
-		
+		deleteStoreArtifacts()
 	}
 	
 	private func undoStoreSideEffects() {
-		
+		deleteStoreArtifacts()
 	}
 	
 }
