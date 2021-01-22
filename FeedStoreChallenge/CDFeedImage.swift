@@ -10,9 +10,9 @@ import Foundation
 import CoreData
 
 public class CDFeedImage: NSManagedObject {
-	@NSManaged public var id: UUID?
+	@NSManaged public var id: UUID
 	@NSManaged public var imageDescription: String?
 	@NSManaged public var location: String?
-	@NSManaged public var url: URL?
-	@NSManaged public var cache: CDCache?
+	@NSManaged public var url: URL
+	@NSManaged public var cache: CDCache
 }

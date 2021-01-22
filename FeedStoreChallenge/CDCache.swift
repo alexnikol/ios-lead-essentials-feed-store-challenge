@@ -10,6 +10,6 @@ import Foundation
 import CoreData
 
 public class CDCache: NSManagedObject {
-	@NSManaged public var timeStamp: Date?
-	@NSManaged public var feed: NSSet?
+	@NSManaged public var timeStamp: Date
+	@NSManaged public var feed: NSSet
 }
